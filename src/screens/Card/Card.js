@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import styles from '../Car/styles';
+import styles from './styles';
 import Logoo from '../../assets/Logoo.jpg';
 import Bandeira from '../../assets/Bandeira.jpg';
 import { stylesheet, TouchableOpacity, Text, View, Image, CustomButton, CustomButtonText } from 'react-native';
@@ -13,10 +13,10 @@ export default () => {
 
     const [ApelidoField, setApelidoField] = useState ('');
     const [CPFField, setCPFField] = useState ('');
-    const [placaField, setplacaField] = useState ('');
-    const [renavamField, setrenavamField] = useState ('');
-    const [chassiField, setchassiField] = useState ('');
-    const [modeloField, setmodeloField] = useState ('');
+    const [NumeroField, setNumeroField] = useState ('');
+    const [TitularField, setTitularField] = useState ('');
+    const [ValidadeField, setValidadeField] = useState ('');
+    const [CVVField, setCVVField] = useState ('');
     //const onPress = () => setCount();
 
     const navigation = useNavigation ();
@@ -29,7 +29,7 @@ export default () => {
         
     }
 
-    const Press = () => {
+    const onPress1 = () => {
 
         navigation.reset({
             routes: [{name: 'Menu'}]
@@ -42,48 +42,49 @@ export default () => {
             
 
             <View style={styles.containerA}>
-                <Text style={styles.Title}>VEICULO</Text>
+                <Text style={styles.Title}>CARTÃO</Text>
                 <Image source = {Bandeira} style = {styles.Image}/> 
             </View>
         
             <View style={styles.InputArea}>
                     
+
+                    <SignInput 
+                        placeholder="Numero"
+                        value={NumeroField}
+                        onChangeText={t=>setNumeroField(t)}
+                    />
+
+                    <SignInput 
+                        placeholder="Titular"
+                        value={TitularField}
+                        onChangeText={t=>setTitularField(t)}
+                    />
+
                     <SignInput 
                         placeholder="CPF"
                         value={CPFField}
                         onChangeText={t=>setCPFField(t)}
                     />
+
+                    <SignInput 
+                        placeholder="Validade"
+                        value={ValidadeField}
+                        onChangeText={t=>setValidadeField(t)}
+                    />
+
+                    <SignInput 
+                        placeholder="CVV"
+                        value={CVVField}
+                        onChangeText={t=>setCVVField(t)}
+                    />
  
                     <SignInput 
-                        placeholder="Apelido do Carro"
+                        placeholder="Apelido do Cartão"
                         value={ApelidoField}
                         onChangeText={t=>setApelidoField(t)}
                     />
                     
-                    <SignInput 
-                        placeholder="Placa"
-                        value={placaField}
-                        onChangeText={t=>setPlacaField(t)}
-                    />
-
-                    <SignInput 
-                        placeholder="chassi"
-                        value={chassiField}
-                        onChangeText={t=>setchassiField(t)}
-                    />
-
-                    <SignInput 
-                        placeholder="Renavam"
-                        value={renavamField}
-                        onChangeText={t=>setrenavamField(t)}
-                    />
-
-                    <SignInput 
-                        placeholder="Modelo"
-                        value={modeloField}
-                        onChangeText={t=>setmodeloField(t)}
-                    />
-
             </View>
 
             <TouchableOpacity
@@ -95,7 +96,7 @@ export default () => {
 
             <TouchableOpacity
                 style={styles.button}
-                onPress={Press}
+                onPress={onPress1}
             >
                 <Text style={styles.Text}>Cancelar</Text>
             </TouchableOpacity>

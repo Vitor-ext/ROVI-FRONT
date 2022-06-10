@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import styles from './styles';
-import Logoo from '../../assets/Logoo.jpg';
 import Bandeira from '../../assets/Bandeira.jpg';
 import { stylesheet, TouchableOpacity, Text, View, Image, CustomButton, CustomButtonText } from 'react-native';
 
 import SignInput from "../../components/SignInput";
+import SignInputPassword from "../../components/SignInputPassword";
 import {useNavigation} from '@react-navigation/native';
+import Api from '../../Api';
 
 
 export default () => {
@@ -13,25 +14,47 @@ export default () => {
 
     const [senhaField, setsenhaField] = useState ('');
     const [emailField, setemailField] = useState ('');
-    const onPress = () => setCount();
+    //const onPress = () => setCount();
 
     const navigation = useNavigation ();
 
-    const handleSignClick = () => {
+    const onPress = () => {
         
-        navigation.reset({
-            routes: [{name: 'Home'}]
-        });
-        
+        if(emailField != '' && senhaField != '') {
+
+            let json = await Api.SignIn(emailField, senhaField);
+
+            if(json.token) {
+                await AsyncStorage.setItem('token', json.token);
+
+                userDispatch({
+                    type: 'setAvatar',
+                    payload:{
+                        avatar: json.data.avatar
+                    }
+                });
+
+                navigation.reset({
+                    routes:[{name:'Menu'}]
+                });
+            } else {
+                alert('E-mail e/ou senha errados!');
+            }
+
+        } else {
+            alert("Preencha os campos!");
+        }    
     }
 
-    const handleMessageButtonClick = () => {
+    const Click = () => {
 
         navigation.reset({
-            routes: [{name: 'Erro'}]
+            routes: [{name: 'Registration'}]
+            
         });
     }
 
+ 
     return (
         
         <View style={styles.container}>
@@ -41,7 +64,7 @@ export default () => {
                 <Image source = {Bandeira} style = {styles.Image}/> 
             </View>
         
-            <View style={styles.InputArea}>
+            <View style={styles.InputArea} >
                     
                 <SignInput 
                     placeholder="Email"
@@ -49,7 +72,7 @@ export default () => {
                     onChangeText={t=>setemailField(t)}
                 />
 
-                <SignInput 
+                <SignInputPassword
                     placeholder="Senha"
                     value={senhaField}
                     onChangeText={t=>setsenhaField(t)}
@@ -65,19 +88,22 @@ export default () => {
             </TouchableOpacity>
 
             
-            <View style={styles.Button} OnPress={handleMessageButtonClick}>
+            <TouchableOpacity 
+                onPress={Click} 
+                style={styles.Button} 
+            >
 
-                <View 
-                    style={styles.SignMessageButton}>
-                        <Text style={styles.Text}>Don´t you have an account ?</Text>
+                <View style={styles.SignMessageButton}>
+                    <Text style={styles.Text}>Don´t you have an account ?</Text>
                 </View>
 
-                <View 
-                    style={styles.SignMessageButtonTextBold}>
-                        <Text style={styles.Text}>Create new account !!!</Text>
+                <View style={styles.SignMessageButtonTextBold}>
+                    <Text style={styles.Text}>Create new account !!!</Text>
                 </View>
 
-            </View>
+            </TouchableOpacity>
+
+
 
         </View>
 

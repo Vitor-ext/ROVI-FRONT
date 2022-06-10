@@ -9,13 +9,15 @@ import SignIn from '../screens/SignIn/SignIn';              // Importar Telas Pa
 import Registration from '../screens/Registration/Registration';              // Importar Telas Para o Projeto Principal
 import Splash from '../screens/Splash/Splash';              // Importar Telas Para o Projeto
 import Car from '../screens/Car/Car';              // Importar Telas Para o Projeto
-
+import Card from '../screens/Card/Card';              // Importar Telas Para o Projeto
+import Power from '../screens/Power/Power';              // Importar Telas Para o Projeto
+import Menu from '../screens/Menu/Menu';              // Importar Telas Para o Projeto
 
 const Stack= createStackNavigator(); 
   
 export default () => (
     <Stack.Navigator
-            initialRouteName="Registration"  /*Definindo Tela Principal*/    
+            initialRouteName="SignIn"  /*Definindo Tela Principal*/    
             screenOptions={{
             headerShown: false /*Ocultando Cabeçario*/  
         }}  
@@ -26,7 +28,9 @@ export default () => (
         <Stack.Screen name="Registration" component={Registration} />
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="Car" component={Car} />
+        <Stack.Screen name="Card" component={Card} />
+        <Stack.Screen name="Power" component={Power} />
+        <Stack.Screen name="Menu" component={Menu} />
     
-            
     </Stack.Navigator>   
 );

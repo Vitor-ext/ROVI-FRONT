@@ -5,6 +5,7 @@ import Bandeira from '../../assets/Bandeira.jpg';
 import { stylesheet, TouchableOpacity, Text, View, Image, CustomButton, CustomButtonText } from 'react-native';
 
 import SignInput from "../../components/SignInput";
+import SignInputPassword from "../../components/SignInputPassword";
 import {useNavigation} from '@react-navigation/native';
 
 
@@ -15,26 +16,23 @@ export default () => {
     const [emailField, setemailField] = useState ('');
     const [nomeField, setnomeField] = useState ('');
     const [CPFField, setCPFField] = useState ('');
-    const [placaField, setplacaField] = useState ('');
-    const [renavamField, setrenavamField] = useState ('');
-    const [chassiField, setchassiField] = useState ('');
     const [senhacofField, setsenhacofField] = useState ('');
-    const onPress = () => setCount();
+    //const onPress = () => setCount();
 
     const navigation = useNavigation ();
 
-    const handleSignClick = () => {
+    const Press = () => {
         
         navigation.reset({
-            routes: [{name: 'Home'}]
+            routes: [{name: 'SignIn'}]
         });
         
     }
 
-    const handleMessageButtonClick = () => {
+    const onPress = () => {
 
         navigation.reset({
-            routes: [{name: 'Erro'}]
+            routes: [{name: 'SignIn'}]
         });
     }
 
@@ -68,13 +66,13 @@ export default () => {
                         onChangeText={t=>setemailField(t)}
                     />
 
-                    <SignInput 
+                    <SignInputPassword 
                         placeholder="Digite uma Senha"
                         value={senhaField}
                         onChangeText={t=>setsenhaField(t)}
                     />
 
-                    <SignInput 
+                    <SignInputPassword 
                         placeholder="Digite a Senha Novamente"
                         value={senhacofField}
                         onChangeText={t=>setsenhacofField(t)}
@@ -91,7 +89,7 @@ export default () => {
 
             <TouchableOpacity
                 style={styles.button}
-                onPress={onPress}
+                onPress={Press}
             >
                 <Text style={styles.Text}>Cancelar</Text>
             </TouchableOpacity>

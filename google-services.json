@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "182163678812",
+    "project_id": "rovi-br",
+    "storage_bucket": "rovi-br.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182163678812:android:6b725bb57fadaecfdc6899",
+        "android_client_info": {
+          "package_name": "Rovi.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182163678812-6qq207b2qf66p3mq3fnbss8m0g1qrbla.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ8_yhEOfqhgBbHy_1TgtjH2CTFEEp6PM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182163678812-6qq207b2qf66p3mq3fnbss8m0g1qrbla.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
