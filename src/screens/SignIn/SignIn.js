@@ -1,55 +1,50 @@
 import React, {useState} from "react";
 import styles from './styles';
 import Bandeira from '../../assets/Bandeira.jpg';
-import { stylesheet, TouchableOpacity, Text, View, Image, CustomButton, CustomButtonText } from 'react-native';
-
+import { stylesheet,
+        TouchableOpacity,
+        Text,
+        View,
+        Image,
+        Alert,
+        CustomButton, 
+        CustomButtonText } from 'react-native';
 import SignInput from "../../components/SignInput";
 import SignInputPassword from "../../components/SignInputPassword";
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Api from '../../Api';
 
-
 export default () => {
-
-
+  
+    
     const [senhaField, setsenhaField] = useState ('');
     const [emailField, setemailField] = useState ('');
-    //const onPress = () => setCount();
 
     const navigation = useNavigation ();
 
-    const onPress = () => {
-        
-        if(emailField != '' && senhaField != '') {
-
-            let json = await Api.SignIn(emailField, senhaField);
-
-            if(json.token) {
-                await AsyncStorage.setItem('token', json.token);
-
-                userDispatch({
-                    type: 'setAvatar',
-                    payload:{
-                        avatar: json.data.avatar
-                    }
-                });
-
-                navigation.reset({
-                    routes:[{name:'Menu'}]
-                });
-            } else {
-                alert('E-mail e/ou senha errados!');
-            }
-
-        } else {
-            alert("Preencha os campos!");
-        }    
+    const onPress = async () => {
+       Api
+          .post("/Login",{
+            "email": emailField,
+            "senha": senhaField
+    })
+      .then((response) => {
+        //AsyncStorage.setItem("TOKEN", response.data.Authorization)
+          console.log(response.data);
+          navigation.navigate("Menu");
+      })
+      .catch((e) => {
+        Alert.alert('Erro', 'Usuário ou senha inválidos')
+        console.log(e);
+      });
     }
+
 
     const Click = () => {
 
         navigation.reset({
-            routes: [{name: 'Registration'}]
+            routes: [{name: 'Splash'}]
             
         });
     }

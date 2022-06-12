@@ -1,22 +1,30 @@
 import React, {useState} from "react";
 import styles from '../Registration/styles';
+import { AppRegistry, Platform } from 'react-native';
+import { stylesheet,
+    TouchableOpacity,
+    Text,
+    View,
+    Image,
+    Alert,
+    CustomButton, 
+    CustomButtonText } from 'react-native';
 import Logoo from '../../assets/Logoo.jpg';
 import Bandeira from '../../assets/Bandeira.jpg';
-import { stylesheet, TouchableOpacity, Text, View, Image, CustomButton, CustomButtonText } from 'react-native';
-
+import Api from '../../Api';
 import SignInput from "../../components/SignInput";
 import SignInputPassword from "../../components/SignInputPassword";
 import {useNavigation} from '@react-navigation/native';
 
 
-export default () => {
 
+export default () => {
 
     const [senhaField, setsenhaField] = useState ('');
     const [emailField, setemailField] = useState ('');
     const [nomeField, setnomeField] = useState ('');
     const [CPFField, setCPFField] = useState ('');
-    const [senhacofField, setsenhacofField] = useState ('');
+    const [senhaConfField, setsenhaConfField] = useState ('');
     //const onPress = () => setCount();
 
     const navigation = useNavigation ();
@@ -29,11 +37,30 @@ export default () => {
         
     }
 
-    const onPress = () => {
-
-        navigation.reset({
-            routes: [{name: 'SignIn'}]
-        });
+    const onPress = async () => {
+        if (senhaField===senhaConfField){
+           
+        Api
+            .post("/Usuario/cadastrarUsuario",{
+            "nome": nomeField,
+            "CPF": CPFField,
+            "email": emailField,
+            "senha": senhaField,
+            "senhaConf": senhaConfField
+            })
+                .then((response) => {
+                    console.log(response.data);
+                    Alert.alert('Uhhhhhhhuuulll', 'Usuário Cadastrado com Sucesso');
+                    navigation.navigate("SignIn");   
+                })
+                .catch((e) => {
+                Alert.alert('Erro', 'Usuário ou senha inválidos')
+                console.log(e);
+                }); 
+        }else {
+            Alert.alert('Erro', 'As senhas devem ser iguais ! ');
+        }    
+     
     }
 
     return (
@@ -74,8 +101,8 @@ export default () => {
 
                     <SignInputPassword 
                         placeholder="Digite a Senha Novamente"
-                        value={senhacofField}
-                        onChangeText={t=>setsenhacofField(t)}
+                        value={senhaConfField}
+                        onChangeText={t=>setsenhaConfField(t)}
                     />
 
             </View>
