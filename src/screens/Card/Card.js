@@ -2,8 +2,15 @@ import React, {useState} from "react";
 import styles from './styles';
 import Logoo from '../../assets/Logoo.jpg';
 import Bandeira from '../../assets/Bandeira.jpg';
-import { stylesheet, TouchableOpacity, Text, View, Image, CustomButton, CustomButtonText } from 'react-native';
-
+import { stylesheet,
+    TouchableOpacity,
+    Text,
+    View,
+    Image,
+    Alert,
+    CustomButton, 
+    CustomButtonText } from 'react-native';
+import Api from "../../Api";
 import SignInput from "../../components/SignInput";
 import {useNavigation} from '@react-navigation/native';
 
@@ -23,9 +30,24 @@ export default () => {
 
     const onPress = () => {
         
-        navigation.reset({
-            routes: [{name: 'Menu'}]
-        });
+            Api
+                .post("/Cartao/cadastrarCartao",{
+                    "apelido":ApelidoField,
+                    "CPF":CPFField,
+                    "numero":NumeroField,
+                    "titular":TitularField,
+                    "validade":ValidadeField,
+                    "CVV":CVVField
+                })
+                    .then((response) => {
+                        console.log(response.data);
+                        Alert.alert('Uhhhhhhhuuulll', 'Cartão Cadastrado com Sucesso');
+                        navigation.navigate("Menu");   
+                    })
+                    .catch((e) => {
+                    Alert.alert('Erro', 'Dados inválidos')
+                    console.log(e);
+            }); 
         
     }
 

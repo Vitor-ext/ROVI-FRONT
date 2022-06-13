@@ -2,11 +2,18 @@ import React, {useState} from "react";
 import styles from '../Car/styles';
 import Logoo from '../../assets/Logoo.jpg';
 import Bandeira from '../../assets/Bandeira.jpg';
-import { stylesheet, TouchableOpacity, Text, View, Image, CustomButton, CustomButtonText } from 'react-native';
-
+import { stylesheet,
+    TouchableOpacity,
+    Text,
+    View,
+    Image,
+    Alert,
+    CustomButton, 
+    CustomButtonText } from 'react-native';
+import Api from '../../Api';
 import SignInput from "../../components/SignInput";
 import {useNavigation} from '@react-navigation/native';
-
+//import tblUsuarioId from "../SignIn/SignIn";
 
 export default () => {
 
@@ -14,19 +21,36 @@ export default () => {
     const [ApelidoField, setApelidoField] = useState ('');
     const [CPFField, setCPFField] = useState ('');
     const [placaField, setplacaField] = useState ('');
-    const [renavamField, setrenavamField] = useState ('');
+    const [marcaField, setmarcaField] = useState ('');
     const [chassiField, setchassiField] = useState ('');
     const [modeloField, setmodeloField] = useState ('');
+    
     //const onPress = () => setCount();
 
     const navigation = useNavigation ();
 
+
     const onPress = () => {
         
-        navigation.reset({
-            routes: [{name: 'Menu'}]
-        });
-        
+            Api
+                .post("veiculo/cadastrarVeiculo",{
+                    "nome_veiculo":ApelidoField,
+                    "placa_veiculo":placaField,
+                    "chassi_veiculo":chassiField,
+                    "modelo_veiculo":modeloField,
+                    "marca_veiculo":marcaField,
+                    "CPF":CPFField
+                })
+                    .then((response) => {
+                        console.log(response.data);
+                        Alert.alert('Uhhhhhhhuuulll', 'Veiculo Cadastrado com Sucesso');
+                        navigation.navigate("Menu");   
+                    })
+                    .catch((e) => {
+                    Alert.alert('Erro', 'Dados inválidos')
+                    console.log(e);
+            }); 
+
     }
 
     const Press = () => {
@@ -63,7 +87,7 @@ export default () => {
                     <SignInput 
                         placeholder="Placa"
                         value={placaField}
-                        onChangeText={t=>setPlacaField(t)}
+                        onChangeText={t=>setplacaField(t)}
                     />
 
                     <SignInput 
@@ -73,9 +97,9 @@ export default () => {
                     />
 
                     <SignInput 
-                        placeholder="Renavam"
-                        value={renavamField}
-                        onChangeText={t=>setrenavamField(t)}
+                        placeholder="Marca"
+                        value={marcaField}
+                        onChangeText={t=>setmarcaField(t)}
                     />
 
                     <SignInput 

@@ -13,7 +13,7 @@ import SignInput from "../../components/SignInput";
 import SignInputPassword from "../../components/SignInputPassword";
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Api from '../../Api';
+import Api from '../../Api'; 
 
 export default () => {
   
@@ -30,16 +30,13 @@ export default () => {
             "senha": senhaField
     })
       .then((response) => {
-        //AsyncStorage.setItem("TOKEN", response.data.Authorization)
-          console.log(response.data);
-          navigation.navigate("Menu");
+         navigation.navigate("Menu");
       })
       .catch((e) => {
         Alert.alert('Erro', 'Usuário ou senha inválidos')
         console.log(e);
       });
     }
-
 
     const Click = () => {
 
