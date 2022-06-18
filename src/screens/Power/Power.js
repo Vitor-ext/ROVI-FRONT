@@ -10,23 +10,33 @@ import {useNavigation} from '@react-navigation/native';
 
 export default () => {
 
-
-    const [senhaField, setsenhaField] = useState ('');
-    const [emailField, setemailField] = useState ('');
-   // const onPress = () => setCount();
-
     const navigation = useNavigation ();
 
     const Press = () => {
+
+    // Amanha focar nisso
+    //     Api
+    //     .post("/Processo/cadastrarProcesso",{
+    //       "email": emailField,
+    //       "senha": senhaField
+    //       })
+    //           .then((response) => {
+    //           navigation.navigate("Menu");
+    //       })
+    //           .catch((e) => {
+    //           Alert.alert('Erro', 'Usuário ou senha inválidos')
+    //           console.log(e);
+    //       });
+    //   }
         
         navigation.reset({
-            routes: [{name: 'Erro'}]
+            routes: [{name: 'Menu'}]
         });
-        
     }
 
     const onPress = () => {
 
+        // Escrever Json para Carga = 1 
         navigation.reset({
             routes: [{name: 'Splash'}]
         });

@@ -1,5 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet,
+  TouchableOpacity,
+  Text,
+  View,
+  Image,
+  Alert,
+  CustomButton, 
+  CustomButtonText } from 'react-native';
 import Batida from '../../assets/Batida.png';
 import erro from '../../assets/erro.png';
 import {useNavigation} from '@react-navigation/native';
@@ -31,11 +38,11 @@ const styles = StyleSheet.create({
 
 }); 
 
-const Apploader = () => {
-      return (
-          <LottieView source={require('../../assets/45902-loader-newton-cradle.json')} autoPlay loop />
-      );
-};
+const timer = setTimeout (()=> {
+  navigation.reset({
+    routes: [{name: 'SignIn'}]   
+  });
+}, 3000);
 
 return (
 

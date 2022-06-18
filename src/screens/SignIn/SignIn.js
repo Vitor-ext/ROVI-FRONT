@@ -24,19 +24,25 @@ export default () => {
     const navigation = useNavigation ();
 
     const onPress = async () => {
+
+    if (emailField === '' || senhaField === '') {   
+        navigation.navigate("Erro");
+        
+    }else{
        Api
           .post("/Login",{
             "email": emailField,
             "senha": senhaField
-    })
-      .then((response) => {
-         navigation.navigate("Menu");
-      })
-      .catch((e) => {
-        Alert.alert('Erro', 'Usuário ou senha inválidos')
-        console.log(e);
-      });
-    }
+            })
+                .then((response) => {
+                navigation.navigate("Menu",response.data);
+            })
+                .catch((e) => {
+                Alert.alert('Erro', 'Usuário ou senha inválidos')
+                console.log(e);
+            });
+        }
+}
 
     const Click = () => {
 

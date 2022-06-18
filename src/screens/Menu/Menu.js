@@ -2,33 +2,37 @@ import React, {useState} from "react";
 import styles from '../Menu/styles';
 import Logoo from '../../assets/Logoo.jpg';
 import Bandeira from '../../assets/Bandeira.jpg';
-import { stylesheet, TouchableOpacity, Text, View, Image, CustomButton, CustomButtonText } from 'react-native';
-
+import { stylesheet,
+        TouchableOpacity,
+        Text,
+        View,
+        Image,
+        Alert,
+        CustomButton, 
+        CustomButtonText } from 'react-native';
+import Api from '../../Api'; 
 import SignInput from "../../components/SignInput";
 import {useNavigation} from '@react-navigation/native';
 
 
 export default () => {
 
-
-    const [senhaField, setsenhaField] = useState ('');
-    const [emailField, setemailField] = useState ('');
-    const [nomeField, setnomeField] = useState ('');
-    const [CPFField, setCPFField] = useState ('');
-    const [placaField, setplacaField] = useState ('');
-    const [renavamField, setrenavamField] = useState ('');
-    const [chassiField, setchassiField] = useState ('');
-    const [senhacofField, setsenhacofField] = useState ('');
-    //const onPress = () => setCount();
-
+    const [Id] = useState ('');
     const navigation = useNavigation ();
 
-    const onPress1 = () => {
-        
-        navigation.reset({
-            routes: [{name: 'Power'}]
-        });
-        
+    const onPress1 = (req) => {
+        Api
+          .get("/Veiculo/listarVeiculoUser",{
+            //Ids: Veiculos.tblUsuarioId
+    })
+      .then((response) => {
+         console.log(response.data);
+         navigation.navigate("Menu");
+      })
+      .catch((e) => {
+        Alert.alert('Erro', 'Usuário ou senha inválidos')
+        console.log(e);
+      });
     }
 
     const onPress2 = () => {
