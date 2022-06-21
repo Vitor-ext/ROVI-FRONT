@@ -8,6 +8,7 @@ import Home from '../screens/Home/Home';              // Importar Telas Para o P
 import SignIn from '../screens/SignIn/SignIn';              // Importar Telas Para o Projeto Principal
 import Registration from '../screens/Registration/Registration';              // Importar Telas Para o Projeto Principal
 import Splash from '../screens/Splash/Splash';              // Importar Telas Para o Projeto
+import SplashMenu from '../screens/SplashMenu/Splash';              // Importar Telas Para o Projeto
 import Car from '../screens/Car/Car';              // Importar Telas Para o Projeto
 import Card from '../screens/Card/Card';              // Importar Telas Para o Projeto
 import Power from '../screens/Power/Power';              // Importar Telas Para o Projeto
@@ -31,6 +32,7 @@ export default () => (
         <Stack.Screen name="Card" component={Card} />
         <Stack.Screen name="Power" component={Power} />
         <Stack.Screen name="Menu" component={Menu} />
+        <Stack.Screen name="SplashMenu" component={SplashMenu} />
     
     </Stack.Navigator>   
 );
